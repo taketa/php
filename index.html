@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script
+			  src="jquery.min.js">
+	</script>
+	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div class="col-sm-6">
+			<div id="data">
+	<div class="inp"><input type="text" class="tex"><input type="text" class="price" style="width:50px"><input type="radio" checked name="condition" value="used">Used<input type="radio" name="condition" value="forparts">ForParts <a href="#" class="btn btn-primary remove">Remove</a></div>
+	
+</div>
+<div id="action">
+	<a href="#" class="btn btn-default" id="add">Add</a><br>
+<a href="#" class="btn btn-default" id="go">GOOO</a>
+</div>
+		</div>
+		
+	</div>
+</div>
+
+<script>
+
+	$("#go").on('click',function(){
+
+				var dat=[];
+$("div.inp").each(function(key,value){
+		var cond="";
+		if ($(this).find("input[name^=condition]:checked").val()=="used"){
+			cond="3000";
+		}
+		else{
+			cond="7000";
+		}
+	dat.push({
+		"userInput":encodeURI($(this).find("input").val()),
+		"condition":cond,
+		"priceval":$(this).find(".price").val()
+
+
+	});
+	console.log(dat);
+	
+});
+$.get( "indexTest.php", {"data":dat}, function( data ) {
+	
+		console.log("yes");
+	});
+
+			
+});
+var cou=-1;
+$("#add").on('click',function(){
+	cou+=1;
+	$("#data").append('<div class="inp"><input type="text" class="tex"><input type="text" class="price" style="width:50px"><input type="radio" checked name="condition'+cou.toString()+'"value="used">Used<input type="radio" name="condition'+cou.toString()+'" value="forparts">ForParts <a href="#" class="btn btn-primary remove">Remove</a></div>');
+});
+////remove items
+// $(".remove").on('click',function(event){
+	
+// 	$(this).closest('div').remove();
+// });
+
+</script>
+<div id="resp"></div>
+	
+</body>
+</html>

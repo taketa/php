@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script
+			  src="jquery.min.js">
+	</script>
+	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div class="col-sm-6">
+			<div id="data">
+	<div class="inp"><input type="text" class="tex"><input type="text" class="price" style="width:50px"><input type="radio" checked name="condition" value="used">Used<input type="radio" name="condition" value="forparts">ForParts <a href="#" class="btn btn-primary remove">Remove</a></div>
+	
+</div>
+<div id="action">
+	<a href="#" class="btn btn-default" id="add">Add</a><br>
+<a href="#" class="btn btn-default" id="go">GOOO</a>
+</div>
+		</div>
+		
+	</div>
+</div>
+
+<script>
+var dat=[];
+	$("#go").on('click',function(){
+			
+	$("div.inp").each(function(key,value){
+
+	dat.push(encodeURI($(this).find("input").val()));
+	$.get( "test.php", {"data":dat}, function( data ) {
+  $( "body" ).html( data );
+
+});
+});
+	console.log(dat);
+
+
+
+	
+		
+
+});
+var cou=-1;
+$("#add").on('click',function(){
+	cou+=1;
+	$("#data").append('<div class="inp"><input type="text" class="tex"><input type="text" class="price" style="width:50px"><input type="radio" checked name="condition'+cou.toString()+'"value="used">Used<input type="radio" name="condition'+cou.toString()+'" value="forparts">ForParts <a href="#" class="btn btn-primary remove">Remove</a></div>');
+});
+////remove items
+// $(".remove").on('click',function(event){
+	
+// 	$(this).closest('div').remove();
+// });
+
+</script>
+	
+</body>
+</html>
